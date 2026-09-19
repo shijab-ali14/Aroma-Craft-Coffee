@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aroma Craft Coffee | আরোমা ক্রাফট কফি - Artisan Brews & Pastries</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        espresso: {
+                            50: '#fdfbf7',
+                            100: '#f7f0e6',
+                            200: '#ebdcc8',
+                            300: '#dec3a4',
+                            400: '#cc9e6d',
+                            500: '#b87c3e',
+                            600: '#8e5b29',
+                            700: '#6f421e',
+                            800: '#4a2c14',
+                            900: '#2c180a',
+                            950: '#1a0c04',
+                        },
+                        cream: {
+                            50: '#fffefb',
+                            100: '#fdfbf7',
+                            200: '#f8f2e6',
+                            300: '#f2e5d1',
+                            400: '#e5ccaa',
+                        },
+                        caramel: '#c87d32',
+                        gold: '#d4af37',
+                        terracotta: '#c05c46'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        bangla: ['Hind Siliguri', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'warm-glow': '0 10px 30px -5px rgba(111, 66, 30, 0.15)',
+                        'gold-glow': '0 0 25px rgba(212, 175, 55, 0.25)',
+                        'espresso-card': '0 15px 35px -10px rgba(44, 24, 10, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body class="selection:bg-espresso-700 selection:text-cream-100">
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3">
+            <div class="glass-panel rounded-2xl px-6 py-3.5 flex items-center justify-between shadow-warm-glow">
+                
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-espresso-800 to-espresso-950 flex items-center justify-center text-gold shadow-md group-hover:scale-105 transition-transform duration-300 border border-gold/30">
+                        <i class="fa-solid fa-mug-hot text-xl group-hover:rotate-12 transition-transform duration-300"></i>
+                    </div>
+                    <div>
+                        <span class="font-serif text-2xl font-extrabold tracking-tight text-espresso-950 block leading-none">Aroma Craft</span>
+                        <span class="text-[11px] font-bangla text-espresso-600 font-semibold tracking-wider">আরোমা ক্রাফট কফি</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-7 text-sm font-semibold text-espresso-800">
+                    <a href="#hero" class="hover:text-caramel transition-colors">Home</a>
+                    <a href="#customizer" class="hover:text-caramel transition-colors flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles text-xs text-gold"></i> Brew Creator</a>
+                    <a href="#menu" class="hover:text-caramel transition-colors">Menu</a>
+                    <a href="#story" class="hover:text-caramel transition-colors">Bean Sourcing</a>
+                    <a href="#reservation" class="hover:text-caramel transition-colors">Reserve & Order</a>
+                    <a href="#gallery" class="hover:text-caramel transition-colors">Vibe</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Cart Button -->
+                    <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-xl bg-espresso-100 hover:bg-espresso-200 text-espresso-900 transition-all border border-espresso-200" title="View Cart">
+                        <i class="fa-solid fa-basket-shopping text-lg"></i>
+                        <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-terracotta text-white font-bold text-[11px] w-5 h-5 rounded-full flex items-center justify-center shadow-sm">0</span>
+                    </button>
+
+                    <!-- Reserve Button -->
+                    <a href="#reservation" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl bg-gradient-to-r from-espresso-800 to-espresso-900 hover:from-espresso-700 hover:to-espresso-800 text-cream-100 font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 border border-gold/20">
+                        Book Table
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden p-2 text-espresso-900 text-2xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-2">
+            <div class="glass-panel rounded-2xl p-6 space-y-4 flex flex-col font-medium text-espresso-900 shadow-xl border border-espresso-200">
+                <a href="#hero" class="mobile-link hover:text-caramel transition-colors">Home</a>
+                <a href="#customizer" class="mobile-link hover:text-caramel transition-colors flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles text-gold"></i> Brew Creator</a>
+                <a href="#menu" class="mobile-link hover:text-caramel transition-colors">Artisan Menu</a>
+                <a href="#story" class="mobile-link hover:text-caramel transition-colors">Bean Journey</a>
+                <a href="#reservation" class="mobile-link hover:text-caramel transition-colors">Reservation & Pickup</a>
+                <a href="#gallery" class="mobile-link hover:text-caramel transition-colors">Cafe Gallery</a>
+                <hr class="border-espresso-200">
+                <a href="#reservation" class="mobile-link text-center py-3 rounded-xl bg-espresso-800 text-cream-100 font-bold text-sm">
+                    Book Table / Pickup Order
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Slide-Over Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none transition-opacity duration-300 opacity-0">
+        <!-- Backdrop -->
+        <div id="cartBackdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-espresso-950/60 backdrop-blur-xs transition-opacity cursor-pointer"></div>
+        
+        <!-- Drawer Panel -->
+        <div class="absolute top-0 right-0 h-full w-full max-w-md bg-espresso-50 border-l border-espresso-200 shadow-2xl pointer-events-auto flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-in-out" id="cartContent">
+            
+            <!-- Drawer Header -->
+            <div class="p-6 border-b border-espresso-200 flex items-center justify-between bg-espresso-100">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-bag-shopping text-espresso-700 text-xl"></i>
+                    <h3 class="text-xl font-serif font-bold text-espresso-950">Your Coffee Order</h3>
+                </div>
+                <button onclick="toggleCartDrawer()" class="text-espresso-600 hover:text-espresso-950 text-xl p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items Container -->
+            <div class="p-6 overflow-y-auto flex-1 space-y-4" id="cartItemsContainer">
+                <!-- Dynamic Items Inserted via JS -->
+                <div class="text-center py-16 text-espresso-500 space-y-3" id="emptyCartMsg">
+                    <i class="fa-solid fa-mug-hot text-5xl text-espresso-300"></i>
+                    <p class="font-medium text-base">Your cart is currently empty.</p>
+                    <p class="text-xs text-espresso-400">Explore our menu or build your custom drink to get started!</p>
+                </div>
+            </div>
+
+            <!-- Drawer Footer Summary -->
+            <div class="p-6 border-t border-espresso-200 bg-white space-y-4">
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between text-espresso-600">
+                        <span>Subtotal</span>
+                        <span id="cartSubtotal" class="font-bold text-espresso-900">৳0</span>
+                    </div>
+                    <div class="flex justify-between text-espresso-600">
+                        <span>VAT & Service (5%)</span>
+                        <span id="cartTax" class="font-bold text-espresso-900">৳0</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-serif font-bold text-espresso-950 pt-2 border-t border-espresso-100">
+                        <span>Total Amount</span>
+                        <span id="cartTotal" class="text-espresso-700">৳0</span>
+                    </div>
+                </div>
+
+                <button onclick="checkoutOrder()" class="w-full py-4 rounded-xl bg-gradient-to-r from-espresso-800 to-espresso-900 hover:from-espresso-700 hover:to-espresso-800 text-cream-100 font-bold text-sm tracking-wider uppercase shadow-md transition-all flex items-center justify-center gap-2">
+                    <span>Proceed to Checkout</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden bg-gradient-to-b from-espresso-100 via-cream-50 to-cream-100" id="hero">
+        
+        <!-- Ambient Warm Glow Background Objects -->
+        <div class="absolute top-20 left-1/4 w-96 h-96 bg-caramel/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel border border-espresso-200/80 text-espresso-800 text-xs sm:text-sm font-semibold uppercase tracking-wider shadow-sm">
+                        <span class="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
+                        <span class="font-serif">Handcrafted Espresso & Specialty Roasts</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-serif font-bold text-espresso-950 leading-tight tracking-tight">
+                        Crafted with Passion, <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-espresso-700 via-caramel to-espresso-900">Brewed to Perfection.</span>
+                    </h1>
+
+                    <p class="text-espresso-700 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-bangla">
+                        প্রতিটি চুমুকে অভিজাত স্বাদ, বিশুদ্ধ অ্যারোমা এবং প্রশান্তি। আমাদের ১০০% অ্যারাবিকা বিনস এবং হাতে তৈরি ফ্রেশ পেস্ট্রি আপনার প্রতিটি মুহূর্তকে করবে আরো স্নিগ্ধ ও আনন্দময়।
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#customizer" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-espresso-800 hover:bg-espresso-700 text-cream-100 font-bold text-sm tracking-wider uppercase shadow-warm-glow hover:-translate-y-0.5 transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-gold"></i> Build Custom Brew
+                        </a>
+                        <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel text-espresso-900 hover:bg-espresso-100 border border-espresso-300 font-bold text-sm tracking-wider uppercase transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-book-open text-espresso-600"></i> Explore Menu
+                        </a>
+                    </div>
+
+                    <!-- Quick Highlight Cards -->
+                    <div class="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-espresso-200/60">
+                        <div class="p-3 bg-white/60 rounded-xl border border-espresso-100 text-center lg:text-left">
+                            <i class="fa-solid fa-seedling text-espresso-600 text-lg mb-1"></i>
+                            <h4 class="font-bold text-xs text-espresso-950">100% Arabica</h4>
+                            <p class="text-[11px] text-espresso-600">Single Origin Beans</p>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-xl border border-espresso-100 text-center lg:text-left">
+                            <i class="fa-solid fa-fire text-caramel text-lg mb-1"></i>
+                            <h4 class="font-bold text-xs text-espresso-950">Artisan Roast</h4>
+                            <p class="text-[11px] text-espresso-600">Small Batch Daily</p>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-xl border border-espresso-100 text-center lg:text-left">
+                            <i class="fa-solid fa-bread-slice text-gold text-lg mb-1"></i>
+                            <h4 class="font-bold text-xs text-espresso-950">Fresh Baked</h4>
+                            <p class="text-[11px] text-espresso-600">Butter Croissants</p>
+                        </div>
+                        <div class="p-3 bg-white/60 rounded-xl border border-espresso-100 text-center lg:text-left">
+                            <i class="fa-solid fa-wifi text-espresso-700 text-lg mb-1"></i>
+                            <h4 class="font-bold text-xs text-espresso-950">Cozy Ambience</h4>
+                            <p class="text-[11px] text-espresso-600">High-Speed Wi-Fi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Hero Card with Steam Particles -->
+                <div class="lg:col-span-5 flex justify-center relative">
+                    <div class="relative w-full max-w-md aspect-square rounded-3xl bg-gradient-to-br from-espresso-900 via-espresso-800 to-espresso-950 p-8 shadow-2xl flex flex-col justify-between overflow-hidden animate-float border-2 border-gold/30">
+                        
+                        <!-- Steam Animation Particles -->
+                        <div class="absolute top-12 left-1/2 -translate-x-1/2 flex space-x-3 pointer-events-none z-20">
+                            <div class="w-2 h-8 bg-gradient-to-t from-cream-100/40 to-transparent rounded-full steam-particle-1"></div>
+                            <div class="w-2.5 h-10 bg-gradient-to-t from-cream-100/50 to-transparent rounded-full steam-particle-2"></div>
+                            <div class="w-1.5 h-7 bg-gradient-to-t from-cream-100/30 to-transparent rounded-full steam-particle-3"></div>
+                        </div>
+
+                        <!-- Top Header inside graphic -->
+                        <div class="flex items-center justify-between text-cream-200 z-10 border-b border-espresso-700/60 pb-4">
+                            <span class="text-xs font-mono uppercase tracking-widest text-gold"><i class="fa-solid fa-star text-xs mr-1"></i> Signature Roast</span>
+                            <span class="text-xs bg-gold/20 text-gold px-2.5 py-1 rounded-full border border-gold/40">Ethiopian Yirgacheffe</span>
+                        </div>
+
+                        <!-- Visual Coffee Art Illustration -->
+                        <div class="my-auto flex justify-center items-center relative py-6">
+                            <div class="w-48 h-48 rounded-full bg-gradient-to-tr from-caramel/30 to-gold/20 flex items-center justify-center relative shadow-inner border border-gold/20">
+                                <i class="fa-solid fa-mug-hot text-8xl text-cream-100 drop-shadow-lg"></i>
+                                <!-- Floating Latte Art Ring -->
+                                <div class="absolute inset-0 rounded-full border border-dashed border-gold/40 animate-spin" style="animation-duration: 20s;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Info Card -->
+                        <div class="bg-espresso-950/80 p-4 rounded-2xl border border-gold/20 backdrop-blur-md z-10 flex items-center justify-between">
+                            <div>
+                                <h4 class="text-sm font-serif font-bold text-cream-100">Velvet Caramel Latte</h4>
+                                <p class="text-xs text-cream-300">Notes of Dark Chocolate & Honey</p>
+                            </div>
+                            <span class="text-lg font-serif font-bold text-gold">৳380</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Virtual Barista (Brew Customizer) -->
+    <section class="py-24 bg-cream-50 border-y border-espresso-200/60 relative" id="customizer">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="px-3.5 py-1.5 rounded-full bg-espresso-100 border border-espresso-300 text-espresso-800 text-xs font-semibold uppercase tracking-widest">
+                    <i class="fa-solid fa-wand-magic-sparkles text-gold mr-1"></i> Virtual Barista
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-serif font-bold text-espresso-950">Craft Your Signature Cup</h2>
+                <p class="text-espresso-700 text-base font-bangla">আপনার নিজের পছন্দমতো বেস, মিল্ক, রোস্ট লেভেল এবং সিরাপ বেছে নিয়ে কাস্টম কফি তৈরি করুন।</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                
+                <!-- Controls Grid -->
+                <div class="lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-8 space-y-8 border border-espresso-200 shadow-espresso-card">
+                    
+                    <!-- 1. Base Coffee Selection -->
+                    <div class="space-y-3">
+                        <label class="text-xs font-bold uppercase tracking-wider text-espresso-800 block">1. Select Espresso Base</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="baseOptions">
+                            <!-- Buttons managed by JS or static with data attrs -->
+                            <button onclick="selectCustomOption('base', 'Espresso Shot', 180, 10)" class="opt-base active p-3 rounded-xl border border-espresso-300 bg-espresso-800 text-cream-100 font-medium text-xs text-left transition-all flex items-center justify-between">
+                                <span>Espresso Shot</span>
+                                <span class="text-[11px] font-bold">৳180</span>
+                            </button>
+                            <button onclick="selectCustomOption('base', 'Velvet Latte', 320, 190)" class="opt-base p-3 rounded-xl border border-espresso-200 bg-white hover:bg-espresso-100 text-espresso-900 font-medium text-xs text-left transition-all flex items-center justify-between">
+                                <span>Velvet Latte</span>
+                                <span class="text-[11px] font-bold">৳320</span>
+                            </button>
+                            <button onclick="selectCustomOption('base', 'Cappuccino', 300, 140)" class="opt-base p-3 rounded-xl border border-espresso-200 bg-white hover:bg-espresso-100 text-espresso-900 font-medium text-xs text-left transition-all flex items-center justify-between">
+                                <span>Cappuccino</span>
+                                <span class="text-[11px] font-bold">৳300</span>
+                            </button>
+                            <button onclick="selectCustomOption('base', 'Cold Brew', 280, 5)" class="opt-base p-3 rounded-xl border border-espresso-200 bg-white hover:bg-espresso-100 text-espresso-900 font-medium text-xs text-left transition-all flex items-center justify-between">
+                                <span>Cold Brew</span>
+                                <span class="text-[11px] font-bold">৳280</span>
+                            </button>
+                            <button onclick="selectCustomOption('base', 'Matcha Latte', 360, 160)" class="opt-base p-3 rounded-xl border border-espresso-200 bg-white hover:bg-espresso-100 text-espresso-900 font-medium text-xs text-left transition-all flex items-center justify-between">
+                                <span>Matcha Latte</span>
+                                <span class="text-[11px] font-bold">৳360</span>
+                            </button>
+                            <button onclick="selectCustomOption('base', 'Mocha Supreme', 350, 290)" class="opt-base p-3 rounded-xl border border-espresso-200 bg-white hover:bg-espresso-100 text-espresso-900 font-medium text-xs text-left transition-all flex items-center justify-between">
+                                <span>Mocha Supreme</span>
+                                <span class="text-[11px] font-bold">৳350</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Milk Choice -->
+                    <div class="space-y-3">
+                        <label class="text-xs font-bold uppercase tracking-wider text-espresso-800 block">2. Choose Milk Type</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <button onclick="selectCustomOption('milk', 'Whole Milk', 0, 120)" class="opt-milk active p-3 rounded-xl border border-espresso-300 bg-espresso-800 text-cream-100 font-medium text-xs transition-all text-center">Whole Milk</button>
+                            <button onclick="selectCustomOption('milk', 'Oat Milk', 60, 90)" class="opt-milk p-3 rounded-xl border border-espresso-200 bg-white text-espresso-900 font-medium text-xs transition-all text-center">Oat Milk (+৳60)</button>
+                            <button onclick="selectCustomOption('milk', 'Almond Milk', 60, 60)" class="opt-milk p-3 rounded-xl border border-espresso-200 bg-white text-espresso-900 font-medium text-xs transition-all text-center">Almond (+৳60)</button>
+                            <button onclick="selectCustomOption('milk', 'Coconut Milk', 50, 80)" class="opt-milk p-3 rounded-xl border border-espresso-200 bg-white text-espresso-900 font-medium text-xs transition-all text-center">Coconut (+৳50)</button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Flavor Syrup -->
+                    <div class="space-y-3">
+                        <label class="text-xs font-bold uppercase tracking-wider text-espresso-800 block">3. Add Artisanal Flavor Syrup</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <button onclick="selectCustomOption('syrup', 'None', 0, 0)" class="opt-syrup active p-3 rounded-xl border border-espresso-300 bg-espresso-800 text-cream-100 font-medium text-xs transition-all text-center">No Syrup</button>
+                            <button onclick="selectCustomOption('syrup', 'Vanilla Bean', 40, 45)" class="opt-syrup p-3 rounded-xl border border-espresso-200 bg-white text-espresso-900 font-medium text-xs transition-all text-center">Vanilla (+৳40)</button>
+                            <button onclick="selectCustomOption('syrup', 'Salted Caramel', 40, 50)" class="opt-syrup p-3 rounded-xl border border-espresso-200 bg-white text-espresso-900 font-medium text-xs transition-all text-center">Caramel (+৳40)</button>
+                            <button onclick="selectCustomOption('syrup', 'Hazelnut', 40, 45)" class="opt-syrup p-3 rounded-xl border border-espresso-200 bg-white text-espresso-900 font-medium text-xs transition-all text-center">Hazelnut (+৳40)</button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Temperature & Sweetness Sliders -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-bold text-espresso-800">
+                                <span>Temperature</span>
+                                <span id="tempVal" class="text-caramel font-semibold">Hot (75°C)</span>
+                            </div>
+                            <input type="range" id="tempSlider" min="0" max="1" value="0" step="1" onchange="updateCustomSliders()" class="w-full">
+                            <div class="flex justify-between text-[11px] text-espresso-500 font-medium">
+                                <span>Hot</span>
+                                <span>Iced with Cubes</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-bold text-espresso-800">
+                                <span>Sweetness Level</span>
+                                <span id="sweetVal" class="text-caramel font-semibold">50% Balanced</span>
+                            </div>
+                            <input type="range" id="sweetSlider" min="0" max="100" value="50" step="25" oninput="updateCustomSliders()" class="w-full">
+                            <div class="flex justify-between text-[11px] text-espresso-500 font-medium">
+                                <span>0%</span>
+                                <span>50%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Custom Brew Dynamic Preview Card -->
+                <div class="lg:col-span-5 glass-panel-dark rounded-3xl p-8 text-cream-100 border border-gold/30 shadow-2xl space-y-6 sticky top-28">
+                    <div class="flex items-center justify-between border-b border-espresso-700/60 pb-4">
+                        <span class="text-xs font-mono uppercase text-gold tracking-widest"><i class="fa-solid fa-mug-hot mr-1"></i> Live Recipe Preview</span>
+                        <span class="text-xs bg-espresso-800 text-cream-200 px-3 py-1 rounded-full border border-espresso-600" id="previewTempBadge">Hot Brew</span>
+                    </div>
+
+                    <!-- Dynamic Illustration -->
+                    <div class="py-6 flex flex-col items-center justify-center text-center space-y-3">
+                        <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-espresso-800 to-caramel/40 flex items-center justify-center relative border-2 border-gold/40 shadow-lg">
+                            <i class="fa-solid fa-mug-saucer text-6xl text-gold" id="previewIcon"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-cream-50" id="previewTitle">Espresso Shot</h3>
+                        <p class="text-xs text-cream-300 max-w-xs" id="previewRecipeSummary">Whole Milk • No Syrup • 50% Sweetness</p>
+                    </div>
+
+                    <!-- Calories & Price Breakdown -->
+                    <div class="bg-espresso-950/80 p-5 rounded-2xl border border-espresso-800/80 space-y-3">
+                        <div class="flex justify-between text-xs text-cream-300">
+                            <span>Estimated Calories</span>
+                            <span class="font-bold text-gold" id="previewCalories">130 kcal</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-cream-300">
+                            <span>Roast Profile</span>
+                            <span class="font-bold text-cream-100">Medium Dark Arabica</span>
+                        </div>
+                        <hr class="border-espresso-800">
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="text-sm font-medium text-cream-200">Custom Price</span>
+                            <span class="text-3xl font-serif font-bold text-gold" id="previewPrice">৳180</span>
+                        </div>
+                    </div>
+
+                    <!-- Add Custom Brew to Cart CTA -->
+                    <button onclick="addCustomBrewToCart()" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold via-caramel to-espresso-600 text-espresso-950 font-bold text-sm uppercase tracking-wider shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-plus text-base"></i> Add Custom Brew to Cart
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Filterable Menu Section -->
+    <section class="py-24 relative" id="menu">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div class="space-y-3">
+                    <span class="text-xs font-bold text-espresso-600 uppercase tracking-widest block">Artisan Selection</span>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-bold text-espresso-950">Our Specialty Menu</h2>
+                </div>
+
+                <!-- Instant Search Bar -->
+                <div class="relative w-full md:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-espresso-400 text-sm"></i>
+                    <input type="text" id="menuSearch" oninput="filterMenuItems()" placeholder="Search coffee, pastries..." class="w-full pl-11 pr-4 py-3 rounded-xl glass-panel border border-espresso-300 text-sm text-espresso-900 focus:outline-none focus:border-espresso-600 transition-colors">
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-8 no-scrollbar" id="categoryTabs">
+                <button onclick="setMenuCategory('all')" class="cat-tab active px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase whitespace-nowrap bg-espresso-800 text-cream-100 transition-all">All Items</button>
+                <button onclick="setMenuCategory('hot')" class="cat-tab px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase whitespace-nowrap glass-panel text-espresso-800 hover:bg-espresso-100 transition-all">Hot Drinks</button>
+                <button onclick="setMenuCategory('cold')" class="cat-tab px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase whitespace-nowrap glass-panel text-espresso-800 hover:bg-espresso-100 transition-all">Cold Brews & Iced</button>
+                <button onclick="setMenuCategory('specialty')" class="cat-tab px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase whitespace-nowrap glass-panel text-espresso-800 hover:bg-espresso-100 transition-all">Specialty Creations</button>
+                <button onclick="setMenuCategory('bakery')" class="cat-tab px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase whitespace-nowrap glass-panel text-espresso-800 hover:bg-espresso-100 transition-all">Fresh Bakery</button>
+            </div>
+
+            <!-- Menu Cards Grid Container -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="menuItemsGrid">
+                <!-- Javascript Dynamic Rendered Product Cards -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Our Story & Bean Origin Journey -->
+    <section class="py-24 bg-espresso-950 text-cream-100 relative overflow-hidden" id="story">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="px-3.5 py-1.5 rounded-full bg-espresso-900 border border-gold/30 text-gold text-xs font-mono uppercase tracking-widest">Ethical Sourcing</span>
+                <h2 class="text-3xl sm:text-5xl font-serif font-bold text-cream-50">From Soil to Your Cup</h2>
+                <p class="text-cream-300 text-base font-bangla">ইথিওপিয়া, কলম্বিয়া এবং আমাদের নিজ দেশ বান্দরবান ও খাগড়াছড়ির পাহাড় থেকে সংগ্রহ করা প্রিমিয়াম কফি বিনস।</p>
+            </div>
+
+            <!-- Sourcing Journey Timeline Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                
+                <!-- Step 1 -->
+                <div class="glass-panel-dark p-6 rounded-2xl border border-gold/20 space-y-4 relative">
+                    <div class="w-10 h-10 rounded-xl bg-gold/20 text-gold font-bold flex items-center justify-center text-lg border border-gold/40">1</div>
+                    <h3 class="text-xl font-serif font-bold text-cream-100">Hand-Picked Origins</h3>
+                    <p class="text-xs text-cream-300 leading-relaxed">Direct trade single-origin beans sourced from high-altitude estates in Yirgacheffe, Huila, and Bandarban Hill Tracts.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="glass-panel-dark p-6 rounded-2xl border border-gold/20 space-y-4 relative">
+                    <div class="w-10 h-10 rounded-xl bg-gold/20 text-gold font-bold flex items-center justify-center text-lg border border-gold/40">2</div>
+                    <h3 class="text-xl font-serif font-bold text-cream-100">Small Batch Roasting</h3>
+                    <p class="text-xs text-cream-300 leading-relaxed">Roasted daily in micro-batches to unlock delicate floral, chocolate, and caramel aromatics with maximum freshness.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-panel-dark p-6 rounded-2xl border border-gold/20 space-y-4 relative">
+                    <div class="w-10 h-10 rounded-xl bg-gold/20 text-gold font-bold flex items-center justify-center text-lg border border-gold/40">3</div>
+                    <h3 class="text-xl font-serif font-bold text-cream-100">Precision Extraction</h3>
+                    <p class="text-xs text-cream-300 leading-relaxed">Brewed at exact 93°C water temperature and 9-bar pressure for a rich, silky golden crema every single time.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="glass-panel-dark p-6 rounded-2xl border border-gold/20 space-y-4 relative">
+                    <div class="w-10 h-10 rounded-xl bg-gold/20 text-gold font-bold flex items-center justify-center text-lg border border-gold/40">4</div>
+                    <h3 class="text-xl font-serif font-bold text-cream-100">Served with Warmth</h3>
+                    <p class="text-xs text-cream-300 leading-relaxed">Handcrafted latte art and warm hospitality designed to give you a comforting oasis in the heart of the city.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Table Reservation & Pre-Order Section -->
+    <section class="py-24 relative bg-cream-100" id="reservation">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-espresso-200 shadow-2xl relative overflow-hidden">
+                
+                <div class="text-center max-w-xl mx-auto mb-10 space-y-3">
+                    <span class="px-3.5 py-1.5 rounded-full bg-espresso-100 text-espresso-800 text-xs font-mono font-bold uppercase tracking-wider">Bookings & Orders</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-espresso-950">Reserve Table or Pre-Order</h2>
+                    <p class="text-espresso-700 text-sm font-bangla">আপনার পছন্দের সময়ে টেবিল বুক করুন কিংবা আসার আগেই টেক-অ্যাওয়ে অর্ডার কনফার্ম করে রাখুন।</p>
+                </div>
+
+                <!-- Booking Mode Selector Toggle -->
+                <div class="flex justify-center mb-8">
+                    <div class="inline-flex p-1 bg-espresso-200/80 rounded-xl">
+                        <button onclick="setBookingMode('table')" id="btnModeTable" class="px-6 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all bg-espresso-800 text-cream-100 shadow-sm">Table Reservation</button>
+                        <button onclick="setBookingMode('pickup')" id="btnModePickup" class="px-6 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all text-espresso-800 hover:text-espresso-950">Express Pickup</button>
+                    </div>
+                </div>
+
+                <!-- Reservation Form -->
+                <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-espresso-800 uppercase">Your Name</label>
+                            <input type="text" required placeholder="Tanvir Ahmed" class="w-full px-4 py-3 rounded-xl bg-white border border-espresso-200 text-espresso-950 focus:outline-none focus:border-espresso-600 transition-colors text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-espresso-800 uppercase">Phone Number</label>
+                            <input type="tel" required placeholder="+880 1700-000000" class="w-full px-4 py-3 rounded-xl bg-white border border-espresso-200 text-espresso-950 focus:outline-none focus:border-espresso-600 transition-colors text-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-espresso-800 uppercase">Date</label>
+                            <input type="date" required class="w-full px-4 py-3 rounded-xl bg-white border border-espresso-200 text-espresso-950 focus:outline-none focus:border-espresso-600 transition-colors text-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-espresso-800 uppercase">Time Slot</label>
+                            <select class="w-full px-4 py-3 rounded-xl bg-white border border-espresso-200 text-espresso-950 focus:outline-none focus:border-espresso-600 transition-colors text-sm">
+                                <option>09:00 AM - 11:00 AM</option>
+                                <option>12:00 PM - 02:00 PM</option>
+                                <option>03:00 PM - 05:00 PM</option>
+                                <option>06:00 PM - 08:00 PM</option>
+                                <option>08:00 PM - 10:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2" id="guestsField">
+                            <label class="text-xs font-bold text-espresso-800 uppercase">Guests</label>
+                            <select class="w-full px-4 py-3 rounded-xl bg-white border border-espresso-200 text-espresso-950 focus:outline-none focus:border-espresso-600 transition-colors text-sm">
+                                <option>2 Persons (Cozy Corner)</option>
+                                <option>4 Persons (Standard Table)</option>
+                                <option>6+ Persons (Lounge)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-espresso-800 uppercase">Special Instructions / Seating Preference</label>
+                        <textarea rows="3" placeholder="e.g. Window seat, anniversary setup, extra quiet area..." class="w-full px-4 py-3 rounded-xl bg-white border border-espresso-200 text-espresso-950 focus:outline-none focus:border-espresso-600 transition-colors text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-espresso-800 hover:bg-espresso-700 text-cream-100 font-bold text-sm uppercase tracking-wider shadow-warm-glow transition-all flex items-center justify-center gap-2">
+                        <span id="submitBtnText">Confirm Reservation</span> <i class="fa-solid fa-circle-check"></i>
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-24 relative" id="gallery">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-bold text-espresso-600 uppercase tracking-widest block">The Aesthetic</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-espresso-950">A glimpse of Aroma Craft</h2>
+            </div>
+
+            <!-- Image Grid Simulation -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="aspect-square rounded-2xl overflow-hidden bg-espresso-200 relative group cursor-pointer border border-espresso-200">
+                    <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80" alt="Cafe Interior" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x600/6f421e/fff?text=Cozy+Interior'">
+                    <div class="absolute inset-0 bg-espresso-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-cream-100 font-serif text-sm font-bold">Warm Seating</div>
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden bg-espresso-200 relative group cursor-pointer border border-espresso-200">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80" alt="Latte Art" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x600/6f421e/fff?text=Latte+Art'">
+                    <div class="absolute inset-0 bg-espresso-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-cream-100 font-serif text-sm font-bold">Latte Artistry</div>
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden bg-espresso-200 relative group cursor-pointer border border-espresso-200">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="Fresh Bakery" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x600/6f421e/fff?text=Fresh+Pastries'">
+                    <div class="absolute inset-0 bg-espresso-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-cream-100 font-serif text-sm font-bold">Oven Croissants</div>
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden bg-espresso-200 relative group cursor-pointer border border-espresso-200">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80" alt="Pour Over Coffee" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x600/6f421e/fff?text=Pour+Over'">
+                    <div class="absolute inset-0 bg-espresso-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-cream-100 font-serif text-sm font-bold">Manual Drip Bar</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Testimonials Slider -->
+    <section class="py-20 bg-cream-200/60 border-t border-espresso-200/60">
+        <div class="max-w-5xl mx-auto px-4 text-center space-y-8">
+            <div class="flex justify-center text-gold space-x-1 text-lg">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-2xl sm:text-3xl font-serif italic text-espresso-950 leading-relaxed max-w-3xl mx-auto">
+                "Aroma Craft has completely redefined my daily coffee routine. Their Velvet Caramel Latte with oat milk is unmatched in smoothness and aroma!"
+            </p>
+            <div>
+                <h4 class="font-serif font-bold text-espresso-900 text-lg">Nabila Rahman</h4>
+                <p class="text-xs text-espresso-600 uppercase font-semibold tracking-wider">Coffee Connoisseur & Designer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Product Details -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="closeProductModal()" class="absolute inset-0 bg-espresso-950/60 backdrop-blur-xs"></div>
+        <div class="glass-panel-dark max-w-lg w-full rounded-3xl p-8 relative border border-gold/30 shadow-2xl z-10 text-cream-100 space-y-6">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-cream-300 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h3 class="text-2xl font-serif font-bold text-cream-50" id="mTitle">Item Title</h3>
+            <span class="inline-block text-xs font-mono font-bold bg-gold/20 text-gold px-3 py-1 rounded-full border border-gold/30" id="mCategory">Category</span>
+            
+            <p class="text-sm text-cream-300 leading-relaxed" id="mDesc">Description text goes here...</p>
+            
+            <div class="bg-espresso-900/80 p-4 rounded-xl border border-espresso-700 space-y-2 text-xs text-cream-200">
+                <div class="flex justify-between"><span>Origin / Blend:</span> <strong id="mOrigin">100% Ethiopian Arabica</strong></div>
+                <div class="flex justify-between"><span>Caffeine Strength:</span> <strong id="mStrength">Medium High</strong></div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+                <span class="text-3xl font-serif font-bold text-gold" id="mPrice">৳0</span>
+                <button id="mAddBtn" class="px-6 py-3 rounded-xl bg-gold text-espresso-950 font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110">Add to Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Toast / Alert Modal -->
+    <div id="confirmModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-espresso-950/70 backdrop-blur-xs"></div>
+        <div class="bg-white max-w-md w-full rounded-3xl p-8 text-center space-y-4 relative z-10 border border-espresso-200 shadow-2xl">
+            <div class="w-16 h-16 rounded-full bg-espresso-100 text-espresso-700 font-bold flex items-center justify-center text-3xl mx-auto border border-espresso-300">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-serif font-bold text-espresso-950" id="confirmHeading">Booking Confirmed!</h3>
+            <p class="text-xs text-espresso-600" id="confirmText">Your table reservation has been logged. We look forward to welcoming you.</p>
+            <div class="p-3 rounded-xl bg-espresso-50 font-mono text-xs text-espresso-800 font-bold" id="confirmId">
+                REF: #AC-89210
+            </div>
+            <button onclick="closeConfirmModal()" class="w-full py-3 rounded-xl bg-espresso-800 text-cream-100 font-bold text-xs uppercase tracking-wider">
+                Done
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-espresso-950 text-cream-200 pt-16 pb-12 border-t border-espresso-800/80 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-gold text-espresso-950 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <span class="font-serif text-xl font-bold text-cream-50">Aroma Craft Coffee</span>
+                </div>
+                <p class="text-cream-400 leading-relaxed font-bangla">প্রতিটি পেয়ালায় বিশুদ্ধ অ্যারোমা এবং সেরা স্বাদের অভিজ্ঞতা। আজই ভিজিট করুন আমাদের ক্যাফে।</p>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-gold font-bold uppercase tracking-wider text-xs">Opening Hours</h4>
+                <p class="text-cream-300">Mon - Fri: 08:00 AM - 10:30 PM</p>
+                <p class="text-cream-300">Sat - Sun: 09:00 AM - 11:30 PM</p>
+                <p class="text-emerald-400 font-semibold pt-1"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Open Now for Dine-In & Pickup</p>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-gold font-bold uppercase tracking-wider text-xs">Location & Contact</h4>
+                <p class="text-cream-300"><i class="fa-solid fa-location-dot text-gold mr-1.5"></i> House 42, Road 11, Banani, Dhaka</p>
+                <p class="text-cream-300"><i class="fa-solid fa-phone text-gold mr-1.5"></i> +880 1711-223344</p>
+                <p class="text-cream-300"><i class="fa-solid fa-envelope text-gold mr-1.5"></i> hello@aromacraft.coffee</p>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="text-gold font-bold uppercase tracking-wider text-xs">Coffee Club Newsletter</h4>
+                <p class="text-cream-400">Subscribe for secret bean releases & 10% off your first order.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Your email..." class="px-3 py-2 rounded-l-xl bg-espresso-900 border border-espresso-700 text-cream-100 text-xs focus:outline-none w-full">
+                    <button class="px-4 py-2 bg-gold text-espresso-950 font-bold rounded-r-xl uppercase text-[11px] hover:brightness-110">Join</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 border-t border-espresso-900 pt-8 flex flex-col sm:flex-row justify-between items-center text-cream-500 gap-4">
+            <p>© 2026 Aroma Craft Coffee (আরোমা ক্রাফট কফি). All Rights Reserved.</p>
+            <div class="flex space-x-4 text-base">
+                <a href="#" class="hover:text-gold transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-gold transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-gold transition-colors"><i class="fa-brands fa-tripadvisor"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
